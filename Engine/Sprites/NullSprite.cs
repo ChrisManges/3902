@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Homerchu.Engine
 {
-    /// <summary>
-    /// A completely null sprite that does absolutely nothing.
-    /// </summary>
     class NullSprite : Sprite
     {
         public NullSprite() : base(new Rectangle(0, 0, 0, 0), null) { }

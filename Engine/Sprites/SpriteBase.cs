@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Homerchu.Engine
 {
-    /// <summary>
-    /// Purely abstract base for sprites implementing ISprite.
-    /// </summary>
     abstract class SpriteBase : ISprite
     {
         public abstract Rectangle Bounds { get; set; }
