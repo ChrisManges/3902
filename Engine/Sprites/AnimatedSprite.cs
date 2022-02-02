@@ -17,7 +17,7 @@ namespace Homerchu.Engine
         /// <summary>
         /// This property defines a getter and setter for the individual current animation frame.
         /// </summary>
-        public int AnimationFrame
+        public uint AnimationFrame
         {
             get => _animationIndex;
             set
@@ -74,11 +74,11 @@ namespace Homerchu.Engine
             RecalculateSelection();
         }
 
-        protected void CalculateNewIndex() => _animationIndex = (_animationIndex + 1) % (int)(_atlasDimensions.X * _atlasDimensions.Y);
+        protected void CalculateNewIndex() => _animationIndex = (uint)(_animationIndex + 1) % (uint)(_atlasDimensions.X * _atlasDimensions.Y);
 
         protected Rectangle _selection;
         protected Vector2 _atlasDimensions;
-        protected int _animationIndex = 0;
+        protected uint _animationIndex = 0;
         protected double _internalTimer = 0;
         protected uint _ticks = 4;
 
@@ -90,8 +90,8 @@ namespace Homerchu.Engine
             _texture.Height / (int)_atlasDimensions.Y);
 
         protected void SetSelection(int w, int h) => _selection = new Rectangle(
-            w * (_animationIndex % (int)_atlasDimensions.X),
-            h * (_animationIndex / (int)_atlasDimensions.X),
+            w * ((int)_animationIndex % (int)_atlasDimensions.X),
+            h * ((int)_animationIndex / (int)_atlasDimensions.X),
             w,
             h);
 
