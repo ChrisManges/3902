@@ -40,10 +40,10 @@ While it's important that everyone be able to write code in a non-constricted ma
 
 ## Namespacing & Folder Organization
 
-Ideally, we want to keep really two namespaces in the project. The first is `Engine` and the second is `Game`. Each will have its own folder where it and its collected objects shall remain.
+Ideally, we want to keep really two namespaces in the project. The first is `Engine` and the second is `Mario`. Each will have its own folder where it and its collected objects shall remain.
 
-The `Engine` namespace should contain all necessary files, classes, and interfaces vital to the overarching design of our game such as Sprites, Commands, Factories, and State patterns and a limited subset of Concrete implementations. These concrete implementations should be things like `AnimatedSprite` or `DynamicSprite` and not `AnimatedSpriteCommand` referring to a specific `Game1` instance. Another instance would be `MarioState` should be in the `Game` folder.
+The `Engine` namespace should contain all necessary files, classes, and interfaces vital to the overarching design of our game such as Sprites, Commands, Factories, and State patterns and a limited subset of Concrete implementations. These concrete implementations should be things like `AnimatedSprite` or `DynamicSprite` and not `AnimatedSpriteCommand` referring to a specific `Game1` instance. Another instance would be `MarioState` should be in the `Mario` folder.
 
-The `Game` namespace should contain all necessary files and classes that implement and use the `Engine` but are not exclusively features of the Engine. This includes but is not limited to: Player Logic, Mario, the Game, and the World.
+The `Mario` namespace should contain all necessary files and classes that implement and use the `Engine` but are not exclusively features of the Engine. This includes but is not limited to: Player Logic, Mario, the Game, and the World.
 
 Inside these folders should be collections of related classes organized out into subfolders. These subfolders *should not* nest their namespaces unnecessarily. Necessary namespacing would include something like `Game.MarioState.{Super, Normal, Mini, Star, etc.}`

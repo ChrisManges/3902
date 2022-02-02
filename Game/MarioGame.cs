@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Homerchu
+namespace Homerchu.Mario
 {
-    public class Game1 : Game
+    public class MarioGame : Game
     {
         private SpriteBatch _spriteBatch;
         private IController _controller;
@@ -15,19 +15,41 @@ namespace Homerchu
         public Texture2D texAnimated;
         private SpriteFont _font;
         internal ISprite Sprite { get; set; }
-        public bool moveLogic;
+        public bool moveLogic = false;
 
-        public Game1()
+        public MarioGame()
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            moveLogic = false;
         }
 
         protected override void Initialize()
         {
+            MapKeyboard();
+            MapGamepad();
+
             base.Initialize();
+        }
+
+        protected void MapKeyboard()
+        {
+            _controller = new KeyboardController();
+            _controller.AddCommand((int)Keys.Q, new QuitCommand(this));
+            _controller.AddCommand((int)Keys.W, new StaticCommand(this));
+            _controller.AddCommand((int)Keys.E, new AnimatedCommand(this));
+            _controller.AddCommand((int)Keys.R, new MoveCommand(this));
+            _controller.AddCommand((int)Keys.T, new DynamicCommand(this));
+        }
+
+        protected void MapGamepad()
+        {
+            _controller2 = new GamepadController();
+            _controller2.AddCommand((int)Buttons.Start, new QuitCommand(this));
+            _controller2.AddCommand((int)Buttons.A, new StaticCommand(this));
+            _controller2.AddCommand((int)Buttons.B, new AnimatedCommand(this));
+            _controller2.AddCommand((int)Buttons.X, new MoveCommand(this));
+            _controller2.AddCommand((int)Buttons.Y, new DynamicCommand(this));
         }
 
         protected override void LoadContent()
@@ -37,20 +59,6 @@ namespace Homerchu
             texGeneric = Content.Load<Texture2D>("Images/wall");
             texAnimated = Content.Load<Texture2D>("Images/victini");
             Sprite = new NullSprite();
-
-            _controller = new KeyboardController();
-            _controller.AddCommand((int)Keys.Q, new QuitCommand(this));
-            _controller.AddCommand((int)Keys.W, new StaticCommand(this));
-            _controller.AddCommand((int)Keys.E, new AnimatedCommand(this));
-            _controller.AddCommand((int)Keys.R, new MoveCommand(this));
-            _controller.AddCommand((int)Keys.T, new DynamicCommand(this));
-
-            _controller2 = new GamepadController();
-            _controller2.AddCommand((int)Buttons.Start, new QuitCommand(this));
-            _controller2.AddCommand((int)Buttons.A, new StaticCommand(this));
-            _controller2.AddCommand((int)Buttons.B, new AnimatedCommand(this));
-            _controller2.AddCommand((int)Buttons.X, new MoveCommand(this));
-            _controller2.AddCommand((int)Buttons.Y, new DynamicCommand(this));
         }
 
         public void SetStatic()
@@ -75,22 +83,28 @@ namespace Homerchu
             moveLogic = true;
         }
 
-        protected override void Update(GameTime gameTime)
+        protected void MoveSprite(GameTime gameTime)
+        {
+            var r = Sprite.Bounds;
+
+            if (moveLogic)
+                r.X += (int)(Math.Sin(gameTime.TotalGameTime.TotalSeconds) * 3);
+            else
+                r.Y += (int)(Math.Sin(gameTime.TotalGameTime.TotalSeconds) * 3);
+
+            Sprite.Bounds = r;
+        }
+
+        protected void UpdateControllers()
         {
             _controller.Update();
             _controller2.Update();
+        }
 
-            var precomp = (int)(Math.Sin(gameTime.TotalGameTime.TotalSeconds) * 3);
-
-            Rectangle r = Sprite.Bounds;
-
-            if (moveLogic)
-                r.X += precomp;
-            else
-                r.Y += precomp;
-
-            Sprite.Bounds = r;
-
+        protected override void Update(GameTime gameTime)
+        {
+            UpdateControllers();   
+            MoveSprite(gameTime);
 
             Sprite.Update(gameTime);
             base.Update(gameTime);
