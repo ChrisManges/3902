@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System;
 
 namespace Homerchu.Engine
@@ -24,13 +25,32 @@ namespace Homerchu.Engine
             _nextState = Keyboard.GetState();
         }
 
-        private void CheckCommandList(System.Collections.Generic.KeyValuePair<int, ICommand> item)
+        /// <summary>
+        /// Determines if an item should be executed based upon the flag criteria.
+        /// First takes the flag and verifies it, checks current and last for the given key.
+        /// Then it compares the necessary state data to determine if it is correct to execute.
+        /// </summary>
+        /// <param name="item">Takes in an item pair</param>
+        private void CheckCommandList(KeyValuePair<KeyData, ICommand> item)
         {
-            if (_lastState.IsKeyDown((Keys)item.Key)) return;
+            var flags = item.Key.Flags;
 
-            if (_nextState.IsKeyDown((Keys)item.Key))
+            if (CheckFlag(flags, KeyFlags.eNone)) return;
+
+            var last = LastDown(item.Key.Key);
+            var curr = CurrentDown(item.Key.Key);
+
+            if ((CheckFlag(flags, KeyFlags.ePress)     && curr  && !last) ||
+                (CheckFlag(flags, KeyFlags.eHeld)      && curr  &&  last) ||
+                (CheckFlag(flags, KeyFlags.eReleased)  && last  && !curr) ||
+                (CheckFlag(flags, KeyFlags.eUntouched) && !last && !curr)
+                )
                 item.Value.Execute();
         }
+
+        private bool CheckFlag(KeyFlags a, KeyFlags b) => (a & b) != 0;
+        private bool LastDown(int key) => _lastState.IsKeyDown((Keys)key);
+        private bool CurrentDown(int key) => _nextState.IsKeyDown((Keys)key);
 
         private KeyboardState _lastState;
         private KeyboardState _nextState;

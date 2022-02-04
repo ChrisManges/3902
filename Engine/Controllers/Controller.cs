@@ -14,7 +14,7 @@ namespace Homerchu.Engine
         /// </summary>
         /// <param name="key">Key value of the pair</param>
         /// <param name="command">Command to be added</param>
-        public void AddCommand(int key, ICommand command) => _inputCommands.Add(key, command);
+        public void AddCommand(KeyData key, ICommand command) => _inputCommands.Add(key, command);
 
         /// <summary>
         /// Clears all set commands
@@ -25,13 +25,13 @@ namespace Homerchu.Engine
         /// Removes a single command
         /// </summary>
         /// <param name="key">Key from which to remove</param>
-        public void RemoveCommand(int key) => _inputCommands.Remove(key);
+        public void RemoveCommand(KeyData key) => _inputCommands.Remove(key);
 
-        protected Dictionary<int, ICommand> _inputCommands;
+        protected Dictionary<KeyData, ICommand> _inputCommands;
 
         protected Controller()
         {
-            _inputCommands = new Dictionary<int, ICommand>();
+            _inputCommands = new Dictionary<KeyData, ICommand>();
         }
     }
 }

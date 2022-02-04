@@ -17,13 +17,13 @@
         /// </summary>
         /// <param name="key">Key or Input code to check for.</param>
         /// <param name="command">Command to be invoked upon sufficient criteria.</param>
-        void AddCommand(int key, ICommand command);
+        void AddCommand(KeyData key, ICommand command);
 
         /// <summary>
         /// Removes a single command from a list of command-key pairs
         /// </summary>
         /// <param name="key">Key or Input code to search for and remove if found.</param>
-        void RemoveCommand(int key);
+        void RemoveCommand(KeyData key);
 
         /// <summary>
         /// Clears all stored command-key pair bindings and resets to a default state.

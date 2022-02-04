@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Homerchu.Game
+namespace Homerchu.Mario
 {
     class EntitySprite : DynamicSprite
     {

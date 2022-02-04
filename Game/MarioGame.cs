@@ -35,21 +35,21 @@ namespace Homerchu.Mario
         protected void MapKeyboard()
         {
             _controller = new KeyboardController();
-            _controller.AddCommand((int)Keys.Q, new QuitCommand(this));
-            _controller.AddCommand((int)Keys.W, new StaticCommand(this));
-            _controller.AddCommand((int)Keys.E, new AnimatedCommand(this));
-            _controller.AddCommand((int)Keys.R, new MoveCommand(this));
-            _controller.AddCommand((int)Keys.T, new DynamicCommand(this));
+            _controller.AddCommand(new KeyData((ushort)Keys.Q, KeyFlags.ePress), new QuitCommand(this));
+            _controller.AddCommand(new KeyData((ushort)Keys.W, KeyFlags.ePress), new StaticCommand(this));
+            _controller.AddCommand(new KeyData((ushort)Keys.E, KeyFlags.ePress), new AnimatedCommand(this));
+            _controller.AddCommand(new KeyData((ushort)Keys.R, KeyFlags.ePress), new MoveCommand(this));
+            _controller.AddCommand(new KeyData((ushort)Keys.T, KeyFlags.ePress), new DynamicCommand(this));
         }
 
         protected void MapGamepad()
         {
             _controller2 = new GamepadController();
-            _controller2.AddCommand((int)Buttons.Start, new QuitCommand(this));
-            _controller2.AddCommand((int)Buttons.A, new StaticCommand(this));
-            _controller2.AddCommand((int)Buttons.B, new AnimatedCommand(this));
-            _controller2.AddCommand((int)Buttons.X, new MoveCommand(this));
-            _controller2.AddCommand((int)Buttons.Y, new DynamicCommand(this));
+            _controller2.AddCommand(new KeyData((ushort)Buttons.Start, KeyFlags.ePress), new QuitCommand(this));
+            _controller2.AddCommand(new KeyData((ushort)Buttons.A, KeyFlags.ePress), new StaticCommand(this));
+            _controller2.AddCommand(new KeyData((ushort)Buttons.B, KeyFlags.ePress), new AnimatedCommand(this));
+            _controller2.AddCommand(new KeyData((ushort)Buttons.X, KeyFlags.ePress), new MoveCommand(this));
+            _controller2.AddCommand(new KeyData((ushort)Buttons.Y, KeyFlags.ePress), new DynamicCommand(this));
         }
 
         protected override void LoadContent()
