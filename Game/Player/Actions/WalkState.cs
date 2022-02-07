@@ -9,7 +9,8 @@ namespace Homerchu.Mario.Actions
         public override void Handle(object context)
         {
             Avatar avatar = (Avatar)context;
-            avatar.sprite.SetAnimationRange(2 + avatar.rowSel * 14, 6 + avatar.rowSel * 14);
+            var row = avatar.rowSel * 15;
+            avatar.sprite.SetAnimationRange(2 + row, 6 + row);
         }
     }
 }
