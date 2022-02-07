@@ -75,13 +75,49 @@ namespace Homerchu.Mario
         protected uint _animationEnd;
 
         /// <summary>
+        /// Updates animations every tick.
+        /// </summary>
+        public override void Update(GameTime gameTime)
+        {
+            IncrementTimer(gameTime);
+
+            if (_internalTimer >= 1.0f / (float)_ticks)
+            {
+                _internalTimer = 0;
+                Animate();
+            }
+        }
+
+        protected new void IncrementTimer(GameTime gameTime)
+        {
+            if (_ticks > 0)
+                _internalTimer += gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        /// <summary>
+        /// This method draws the selected animation frame to the canvas
+        /// </summary>
+        public override void Draw(SpriteBatch spriteBatch) => spriteBatch.Draw(_texture, _bounds, _selection, _color);
+
+        /// <summary>
+        /// Animate is an internal method that can be called by Update
+        /// This method is responsible for updating the animation index,
+        /// and it will update a given sprite sheet.
+        /// </summary>
+        protected new void Animate()
+        {
+            CalculateNewIndex();
+            RecalculateSelection();
+        }
+
+        /// <summary>
         /// Calculate new index with respect to animation boundaries
         /// </summary>
         protected new void CalculateNewIndex()
         {
             _animationIndex++;
 
-            if (_animationIndex > _animationEnd)
+            if (_animationIndex >= _animationEnd)
                 _animationIndex = _animationStart;
         }
 
