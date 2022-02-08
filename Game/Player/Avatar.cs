@@ -41,8 +41,7 @@ namespace Homerchu.Mario
         /// </summary>
         protected void ChangeActionState()
         {
-            //_actionState = new AvatarState(); //TODO: USE A FACTORY TO CREATE A NEW STATE
-            _actionState = new Actions.WalkState();
+            _actionState = ActionFactory.Instance.MakeObject((int)ActionStates.eWalk);
             _actionState.Handle(this);
         }
 
@@ -52,7 +51,7 @@ namespace Homerchu.Mario
         protected void ChangePlayerState()
         {
             //_playerState = new AvatarState(); //TODO: USE A FACTORY TO CREATE A NEW STATE
-            _actionState.Handle(this);
+            _playerState.Handle(this);
         }
 
         Texture2D _sheet;

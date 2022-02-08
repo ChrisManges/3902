@@ -6,7 +6,7 @@ namespace Homerchu.Mario.Actions
 {
     class WalkState : AvatarState
     {
-        public override void Handle(object context)
+        public override void Handle(Avatar context)
         {
             Avatar avatar = (Avatar)context;
             var row = avatar.rowSel * 15;

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Homerchu.Mario
 {
-    abstract class AvatarState : IState
+    abstract class AvatarState : IState<Avatar>
     {
-        public abstract void Handle(object context);
+        public abstract void Handle(Avatar context);
     }
 }

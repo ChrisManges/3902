@@ -6,10 +6,11 @@ namespace Homerchu.Mario.Actions
 {
     class IdleState : AvatarState
     {
-        public override void Handle(object context)
+        public override void Handle(Avatar context)
         {
             Avatar avatar = (Avatar)context;
-            avatar.sprite.SetAnimationRange(1 + avatar.rowSel * 14, 2 + avatar.rowSel * 14);
+            var row = avatar.rowSel * 15;
+            avatar.sprite.SetAnimationRange(1 + row, 2 + row);
         }
     }
 }
